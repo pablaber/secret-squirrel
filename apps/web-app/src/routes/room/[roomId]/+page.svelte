@@ -21,7 +21,6 @@
 
 	type RoomRoles = 'owner' | 'guest' | 'new-guest' | 'loading' | 'not-authorized';
 	function derivedRole(): RoomRoles {
-		console.log('derivedRole', keyPair, fingerprint);
 		if (!keyPair || !fingerprint) return 'loading';
 
 		if (room.ownerFingerprint === fingerprint) {
@@ -58,9 +57,7 @@
 
 	onMount(async () => {
 		keyPair = await storageUtils.loadOrCreateKeyPair();
-		console.log('keyPair', keyPair);
 		fingerprint = await cryptoUtils.calculateFingerprint(keyPair.publicKey);
-		console.log('fingerprint', fingerprint);
 		await importPartnerPublicKey();
 	});
 

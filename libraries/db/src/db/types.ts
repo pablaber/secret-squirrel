@@ -5,5 +5,5 @@ export type Message = typeof messages.$inferSelect;
 export type Room = typeof rooms.$inferSelect;
 
 export type RoomWithMessages = typeof rooms.$inferSelect & {
-  messages: Message[];
+  messages?: Message[];
 };
