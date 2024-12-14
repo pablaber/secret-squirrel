@@ -50,6 +50,9 @@ importers:
       '@squirrel/db':
         specifier: workspace:*
         version: link:../../libraries/db
+      drizzle-orm:
+        specifier: ~0.38.2
+        version: 0.38.2(@types/pg@8.11.10)(pg@8.13.1)
       nanoid:
         specifier: ~5.0.9
         version: 5.0.9
