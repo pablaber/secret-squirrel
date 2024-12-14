@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { z } from 'zod';
 import { db, schema } from '@squirrel/db';
 import { createCryptoUtils } from '$lib/utils';
 import { eq } from 'drizzle-orm';
@@ -8,7 +9,12 @@ const cryptoUtils = createCryptoUtils(crypto.webcrypto.subtle as SubtleCrypto);
 
 export async function POST({ request, params }) {
 	const { roomId } = params;
-	const { publicKey: guestPublicKey } = await request.json();
+
+	const bodySchema = z.object({
+		publicKey: z.string()
+	});
+
+	const { publicKey: guestPublicKey } = bodySchema.parse(await request.json());
 
 	if (!roomId || !guestPublicKey) {
 		return Response.json(
@@ -19,7 +25,19 @@ export async function POST({ request, params }) {
 		);
 	}
 
-	const guestFingerprint = await cryptoUtils.calculateFingerprint(guestPublicKey);
+	let guestKey: CryptoKey;
+	try {
+			guestKey = await cryptoUtils.importKey(guestPublicKey);
+	} catch (e) {
+		console.error(e);
+		return Response.json(
+			{
+				error: 'Invalid public key'
+			},
+			{ status: 400 }
+		);
+	}
+	const guestFingerprint = await cryptoUtils.calculateFingerprint(guestKey);
 
 	const existingRoom = await db.query.rooms.findFirst({
 		where: (rooms, { eq }) =>eq(rooms.id, roomId)

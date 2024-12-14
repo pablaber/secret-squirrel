@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { serve } from "@hono/node-server";
-import { logger } from "./lib/logger";
-import { app, injectWebSocket } from "./lib/server";
+import { logger } from "./src/logger";
+import { app, injectWebSocket } from "./src/server";
 
 const port = parseInt(process.env.PORT || "3000");
 if (isNaN(port)) {
