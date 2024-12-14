@@ -343,6 +343,10 @@
     {
       "packageName": "message-service",
       "projectFolder": "apps/message-service"
+    },
+    {
+      "packageName": "web-app",
+      "projectFolder": "apps/web-app"
     }
     // {
     //   /**
