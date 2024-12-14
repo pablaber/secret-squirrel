@@ -27,7 +27,7 @@ export const actions = {
 			});
 		}
 
-    const ownerCryptoKey = await cryptoUtils.importKey(ownerPublicKey);
+		const ownerCryptoKey = await cryptoUtils.importKey(ownerPublicKey);
 		const ownerFingerprint = await cryptoUtils.calculateFingerprint(ownerCryptoKey);
 
 		const [{ roomId }] = await db
@@ -36,7 +36,7 @@ export const actions = {
 				id: newRoomId,
 				ownerPublicKey,
 				ownerFingerprint,
-				password: hashedPassword,
+				password: hashedPassword
 			})
 			.returning({ roomId: schema.rooms.id });
 
