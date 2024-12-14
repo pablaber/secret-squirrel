@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "Drizzle database schema for the app",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "db:generate": "drizzle-kit generate --config ./src/drizzle.config.ts",
+    "db:migrate": "drizzle-kit migrate --config ./src/drizzle.config.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
